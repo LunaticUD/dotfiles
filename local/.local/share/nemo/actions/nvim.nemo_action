@@ -1,0 +1,14 @@
+[Nemo Action]
+Name=使用Nvim打开
+Comment=Auto-detect sudo requirement
+Exec=alacritty -e nvim "%F"
+Icon=~/.local/share/neovide/neovide.ico
+# --- 关键限制设置 ---
+# Selection=s 表示仅在选中单个对象时显示
+Selection=s
+# Extensions=any; 通常匹配所有文件
+Extensions=any;
+# 【核心】使用 Mimetypes 排除目录
+# !inode/directory 表示“非目录”
+# 如果不加这行，Extensions=any 有时可能会匹配到文件夹
+Mimetypes=!inode/directory;

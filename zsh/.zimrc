@@ -1,0 +1,61 @@
+#
+# This is not sourced during shell startup and is only used to configure zimfw.
+#
+
+# -----------------
+# Core & Utilities
+# -----------------
+# Sets sane Zsh built-in environment options.
+zmodule environment
+# Applies correct bindkeys for input events.
+zmodule input
+# Utility aliases and functions. Adds colour to ls, grep and less.
+zmodule utility
+# Sets a custom terminal title.
+# zmodule termtitle
+# Provides handy git aliases and functions.
+zmodule git
+
+# -----------------
+# Third-party Utils
+# -----------------
+zmodule hlissner/zsh-autopair
+
+# -----------------
+# Prompt
+# -----------------
+zmodule prompt-pwd
+# Exposes how long the last command took to run to prompts.
+zmodule duration-info
+# Exposes git repository status information to prompts.
+zmodule git-info
+# A heavily reduced, ASCII-only version of the Spaceship and Starship prompts.
+# zmodule asciiship
+# zmodule magicmace
+zmodule nekolight
+# -----------------
+# Completion (关键区域)
+# -----------------
+# Additional completion definitions for Zsh.
+zmodule zsh-users/zsh-completions --fpath src
+
+# Enables and configures smart and extensive tab completion.
+# ! 必须先加载 completion 初始化补全系统
+zmodule completion
+
+# ! fzf-tab 必须在 completion 之后加载，否则无法接管补全
+# zmodule Aloxaf/fzf-tab
+
+# -----------------
+# Highlighting & History (必须放在最后)
+# -----------------
+# Fish-like syntax highlighting for Zsh.
+# 建议放在 completion 之后，以确保正确高亮补全后的命令
+zmodule zdharma-continuum/fast-syntax-highlighting
+
+# Fish-like history search for Zsh.
+zmodule zsh-users/zsh-history-substring-search
+
+# Fish-like autosuggestions for Zsh.
+# 通常放在最后，以避免被其他插件的 widget 覆盖
+zmodule zsh-users/zsh-autosuggestions

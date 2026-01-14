@@ -1,0 +1,85 @@
+# 基础设置
+backend = "glx";
+mark-wmwin-focused = true;
+mark-ovredir-focused = true;
+detect-client-opacity = true;
+unredir-if-possible = true;
+vsync = true;
+dbe = false;
+detect-transient = true;
+detect-client-leader = true;
+invert-color-include = [ ];
+glx-copy-from-front = false;
+
+# 圆角
+corner-radius = 10;
+round-borders = 0;
+rounded-corners-exclude = [
+	"class_g *= 'fcitx'",
+	"window_type = 'dock'",        # 排除状态栏
+	"window_type = 'desktop'",     # 排除桌面窗口
+	"class_g = 'i3bar'",           # 明确排除 i3bar (以防万一)
+	"class_g = 'dmenu'",           # 排除 dmenu
+	"window_type = 'tooltip'",     # 排除提示框
+	"window_type = 'menu'",        # 排除右键菜单
+	"window_type = 'dropdown_menu'",
+	"window_type = 'popup_menu'",
+];
+# 透明
+active-opacity = 0.95;
+opacity-rule = [
+    "100:_NET_WM_STATE@:32a *= '_NET_WM_STATE_STICKY'", # 画中画
+    "100:_NET_WM_STATE@:32a *= '_NET_WM_STATE_FULLSCREEN' && WM_CLASS@:s *= 'google-chrome'", # 全屏 chrome 窗口
+    "100:WM_NAME@:s = '画中画'",
+    "100:WM_CLASS@:s *= 'vncviewer'",
+    "100:class_g = 'mpv'",
+    "100:class_g = 'obs'",
+    "100:class_g = 'Gimp'",
+    # "90:WM_CLASS@:s *= 'google-chrome' && !focused",
+    "92:!focused",
+];
+
+# 模糊
+blur-method = "dual_kawase";
+blur-strength = 9;
+shadow = false;
+blur-kern = "3x3box";
+blur-background-exclude = [
+    # "class_g *= 'dwm'",
+    "class_g = 'fcitx'",
+	# "window_type = 'dock'",
+	"window_type = 'desktop'",
+	"_GTK_FRAME_EXTENTS@:c",
+    "class_g *= 'wemeetapp'",
+    "_NET_WM_NAME@:s *= 'wechat'",
+	"class_g = 'dmenu'",           # 排除 dmenu
+	"window_type = 'tooltip'",     # 排除提示框
+	"window_type = 'menu'",        # 排除右键菜单
+];
+
+# 淡入淡出
+fading = true;
+fade-delta = 2;
+fade-in-step = 0.01;
+fade-out-step = 0.01;
+fade-exclude = [
+    "class_g *= 'fcitx'",
+    "class_g = 'Rofi'",
+    "WM_CLASS@:s *= 'screenkey'",
+];
+
+# 动画
+animations = true;
+animation-window-mass = 0.5;
+animation-dampening = 16;
+animation-stiffness-in-tag = 125;
+animation-for-open-window = "zoom";
+animation-for-unmap-window = "squeeze";
+animation-exclude = [
+    "class_g = 'fcitx'",
+    "class_g = 'flameshot'",
+    "class_g = 'Dunst'",
+    "class_g = 'Rofi'",
+    "WM_CLASS@:s *= 'screenkey'",
+    "_NET_WM_NAME@:s *= 'wechat'",
+];

@@ -1,0 +1,50 @@
+[global]
+    origin = top-right
+    offset = (20, 20)
+    width = 300
+    notification_limit = 5
+
+    # 文本与排版
+    font = Maple Mono NF CN 10
+    markup = full
+    format = "<b>%s</b>\n%b"
+    padding = 15
+    horizontal_padding = 15
+    text_icon_padding = 10
+    line_height = 8
+    separator_height = 0
+    separator_color = frame
+
+    # 图标
+    icon_position = left
+    min_icon_size = 48
+    max_icon_size = 64
+
+    # 边框与圆角
+    frame_width = 2
+    frame_color = "#89b4fa"
+    corner_radius = 10
+
+    # 进度条
+    progress_bar = true
+    progress_bar_height = 10
+    progress_bar_frame_width = 1
+    progress_bar_min_width = 150
+    progress_bar_max_width = 300
+
+[urgency_low]
+    background = "#1e1e2e"
+    foreground = "#cdd6f4"
+    timeout = 1
+
+[urgency_normal]
+    background = "#1e1e2e"
+    foreground = "#cdd6f4"
+    timeout = 3
+
+[urgency_critical]
+    background = "#1e1e2e"
+    foreground = "#f38ba8"
+    frame_color = "#f38ba8"
+    timeout = 0
+

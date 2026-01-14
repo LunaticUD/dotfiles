@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+  <its:rules xmlns:its="http://www.w3.org/2005/11/its" version="1.0">
+    <its:translateRule translate="no" selector="/fontconfig/*[not(self::description)]" />
+  </its:rules>
+
+  <description>User Custom Configuration</description>
+
+  <match target="font">
+    <edit mode="assign" name="rgba">
+      <const>rgb</const>
+    </edit>
+    <edit mode="assign" name="hinting">
+      <bool>true</bool>
+    </edit>
+    <edit mode="assign" name="hintstyle">
+      <const>hintslight</const>
+    </edit>
+    <edit mode="assign" name="antialias">
+      <bool>true</bool>
+    </edit>
+    <edit mode="assign" name="lcdfilter">
+      <const>lcddefault</const>
+    </edit>
+    <edit name="embeddedbitmap" mode="assign">
+      <bool>false</bool>
+    </edit>
+  </match>
+
+  <dir>/usr/share/fonts</dir>
+  <dir>/usr/local/share/fonts</dir>
+  <dir prefix="xdg">fonts</dir>
+  <dir>~/.fonts</dir>
+
+  <match target="pattern">
+    <test name="family"><string>sans-serif</string></test>
+    <edit name="family" mode="append" binding="weak">
+      <string>Noto Color Emoji</string>
+    </edit>
+  </match>
+  <match target="pattern">
+    <test name="family"><string>serif</string></test>
+    <edit name="family" mode="append" binding="weak">
+      <string>Noto Color Emoji</string>
+    </edit>
+  </match>
+  <match target="pattern">
+    <test name="family"><string>monospace</string></test>
+    <edit name="family" mode="append" binding="weak">
+      <string>Noto Color Emoji</string>
+    </edit>
+  </match>
+
+  <match target="pattern">
+    <test qual="any" name="family">
+      <string>serif</string>
+    </test>
+    <edit name="family" mode="prepend" binding="strong">
+      <string>Noto Serif</string>
+    </edit>
+  </match>
+  <match target="pattern">
+    <test qual="any" name="family">
+      <string>sans-serif</string>
+    </test>
+    <edit name="family" mode="prepend" binding="strong">
+      <string>Roboto</string>
+    </edit>
+  </match>
+  <match target="pattern">
+    <test qual="any" name="family">
+      <string>monospace</string>
+    </test>
+    <edit name="family" mode="prepend" binding="strong">
+      <string>Cascadia Code</string>
+      <string>DejaVu Sans Mono</string>
+    </edit>
+  </match>
+
+  <match>
+    <test name="lang" compare="contains">
+      <string>zh</string>
+    </test>
+    <test name="family">
+      <string>serif</string>
+    </test>
+    <edit name="family" mode="prepend">
+      <string>Source Han Serif CN</string>
+      <string>Noto Serif CJK SC</string>
+    </edit>
+  </match>
+  
+  <match>
+    <test name="lang" compare="contains">
+      <string>zh</string>
+    </test>
+    <test name="family">
+      <string>sans-serif</string>
+    </test>
+    <edit name="family" mode="prepend">
+      <string>Source Han Sans CN</string>
+      <string>Noto Sans CJK SC</string>
+    </edit>
+  </match>
+
+  <match>
+    <test name="lang" compare="contains">
+      <string>zh</string>
+    </test>
+    <test name="family">
+      <string>monospace</string>
+    </test>
+    <edit name="family" mode="prepend">
+      <string>Noto Sans Mono CJK SC</string>
+    </edit>
+  </match>
+
+  <match target="pattern">
+    <test qual="any" name="family"><string>WenQuanYi Zen Hei</string></test>
+    <edit name="family" mode="assign" binding="same"><string>Noto Sans CJK SC</string></edit>
+  </match>
+  <match target="pattern">
+    <test qual="any" name="family"><string>WenQuanYi Micro Hei</string></test>
+    <edit name="family" mode="assign" binding="same"><string>Noto Sans CJK SC</string></edit>
+  </match>
+  <match target="pattern">
+    <test qual="any" name="family"><string>Microsoft YaHei</string></test>
+    <edit name="family" mode="assign" binding="same"><string>Noto Sans CJK SC</string></edit>
+  </match>
+  <match target="pattern">
+    <test qual="any" name="family"><string>SimHei</string></test>
+    <edit name="family" mode="assign" binding="same"><string>Noto Sans CJK SC</string></edit>
+  </match>
+  <match target="pattern">
+    <test qual="any" name="family"><string>SimSun</string></test>
+    <edit name="family" mode="assign" binding="same"><string>Noto Serif CJK SC</string></edit>
+  </match>
+  <match target="pattern">
+    <test qual="any" name="family"><string>SimSun-18030</string></test>
+    <edit name="family" mode="assign" binding="same"><string>Noto Serif CJK SC</string></edit>
+  </match>
+
+  <include ignore_missing="yes">conf.d</include>
+
+  <cachedir>/var/cache/fontconfig</cachedir>
+  <cachedir prefix="xdg">fontconfig</cachedir>
+  <cachedir>~/.fontconfig</cachedir>
+
+  <config>
+    <rescan>
+      <int>30</int>
+    </rescan>
+  </config>
+</fontconfig>

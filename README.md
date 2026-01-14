@@ -1,0 +1,15 @@
+alacritty
+bash
+emacs
+fcitx5
+gestures
+i3
+i3status-rust
+local
+nvim
+picom
+polybar
+rofi
+sway
+theme
+zsh

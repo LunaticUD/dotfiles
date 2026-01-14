@@ -1,0 +1,17 @@
+# 工作区模块
+[workspaces]
+command=i3-msg -t get_workspaces
+label=
+markup=pango
+separator=false
+separator_block_width=15
+# 高亮当前工作区
+instance=0
+
+# 时间模块
+[time]
+command=date '+%Y-%m-%d %H:%M'
+interval=1
+label=
+color=#FFFFFF
+

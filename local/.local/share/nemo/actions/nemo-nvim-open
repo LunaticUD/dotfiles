@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# 获取传入的文件路径
+TARGET="$1"
+
+# 检查文件是否存在
+if [ ! -e "$TARGET" ]; then
+    # 如果文件不存在，检查所在目录是否有写权限
+    PARENT_DIR=$(dirname "$TARGET")
+    if [ -w "$PARENT_DIR" ]; then
+        nvim "$TARGET"
+    else
+        sudo -e "$TARGET"
+    fi
+# 检查当前用户是否有写权限 (-w)
+elif [ -w "$TARGET" ]; then
+    # 有权限：直接用 nvim
+    nvim "$TARGET"
+else
+    # 无权限：使用 sudoedit (等同于 sudo -e)
+    # 这会以当前用户的配置启动编辑器，但以 root 权限保存
+    sudo -e "$TARGET"
+fi

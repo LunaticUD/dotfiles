@@ -1,0 +1,10 @@
+channels:
+  - conda-forge
+  - bioconda
+mirrored_channels:
+  conda-forge:
+    - https://conda.anaconda.org/conda-forge
+    - https://prefix.dev/conda-forge
+
+channel_priority: strict
+auto_activate: false

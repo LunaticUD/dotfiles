@@ -1,0 +1,8 @@
+[Nemo Action]
+Name=在终端中打开
+Comment=Open terminal in current directory
+# 这里的命令不需要加参数，Nemo 会自动把当前目录设为工作目录
+Exec=alacritty
+Icon-Name=terminal
+# 什么时候显示：none 代表未选中任何文件（即在空白处右键）
+Selection=none

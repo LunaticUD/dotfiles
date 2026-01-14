@@ -1,0 +1,4 @@
+{
+  "python": "~/miniforge3/envs/pywgcna/bin/python3 -u",
+  "r":"~/miniforge3/envs/pywgcna/bin/Rscript"
+}

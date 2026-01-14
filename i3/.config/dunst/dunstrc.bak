@@ -1,0 +1,72 @@
+[global]
+    # 设置锚点为：顶部居中
+    origin = top-right
+
+    # 设置偏移量：水平x垂直
+    # 第一个数字 0：水平不偏移（保持居中）
+    # 第二个数字 40：向下偏移 40px (请根据您 Polybar 的高度调整这个值)
+    # 如果您的 Polybar 高度是 30px，设置 40px 可以留出 10px 的空隙，不至于贴太紧
+    offset = 0x40
+
+    # --- 动画与显示 (可选优化) ---
+    
+    # 限制宽度，不要太宽
+    width = (300, 600)
+    
+    # 启用收缩 (如果内容少，框就变小)
+    shrink = yes
+    
+    # 透明度 (0-100，需要 picom 支持)
+    transparency = 10    
+    # 限制通知栏的宽度 (最小 300px，最大 500px)
+    width = (300, 500)
+    # 通知的高度
+    height = 300
+    
+    # 多少条通知堆叠在一起？
+    notification_limit = 3
+
+    ### 外观 ###
+    # 圆角 (Debian 的 dunst 版本如果较新支持此项)
+    corner_radius = 10
+    
+    # 边框宽度和颜色
+    frame_width = 2
+    frame_color = "#89B4FA"
+
+    # 字体 (推荐使用 Nerd Font)
+    font = Maple Mone NF CN 12
+
+    # 间距
+    padding = 20
+    horizontal_padding = 20
+    text_icon_padding = 20
+
+    # 图标大小 (左侧显示的图标)
+    icon_position = left
+    min_icon_size = 64
+    max_icon_size = 64
+
+    ### 行为 ###
+    # 鼠标点击通知时执行的操作 (do_action, close, do_nothing)
+    mouse_left_click = close_current
+    mouse_right_click = close_all
+
+[urgency_low]
+    # 低优先级通知 (灰色背景)
+    background = "#1e1e2e"
+    foreground = "#CDD6F4"
+    timeout = 2  # 显示 4 秒后自动消失
+
+[urgency_normal]
+    # 正常通知 (深色背景)
+    background = "#1e1e2e"
+    foreground = "#CDD6F4"
+    timeout = 3  # 显示 6 秒后自动消失
+
+[urgency_critical]
+    # 紧急通知 (红色边框，永不消失直到手动关闭)
+    background = "#1e1e2e"
+    foreground = "#F38BA8"
+    frame_color = "#F38BA8"
+    timeout = 5  # 0 代表不自动关闭

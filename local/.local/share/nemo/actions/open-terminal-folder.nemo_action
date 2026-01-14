@@ -1,0 +1,10 @@
+[Nemo Action]
+Name=在终端中打开
+# 这里必须加参数，告诉终端去哪个目录 (%F 是选中的文件夹路径)
+Exec=alacritty --working-directory="%F"
+Icon-Name=terminal
+# 什么时候显示：any 代表选中了东西
+Selection=any
+# 限制只能是文件夹
+Extensions=dir;
+

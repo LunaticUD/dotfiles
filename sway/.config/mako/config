@@ -1,0 +1,46 @@
+# ~/.config/mako/config
+
+# --- 基础外观 ---
+font=Monospace 10
+background-color=#2e3440
+text-color=#d8dee9
+border-color=#88c0d0
+border-size=2
+border-radius=5
+
+# --- 布局与位置 ---
+# 宽度和高度
+width=300
+height=110
+# 边距
+margin=10
+# 内边距
+padding=15
+# 显示位置 (top-right, top-center, bottom-right 等)
+anchor=top-right
+
+# --- 行为 ---
+# 默认显示时间 (毫秒)，0 表示不自动消失
+default-timeout=5000
+# 忽略超时设置的程序 (比如截图工具不想让通知消失)
+ignore-timeout=0
+# 鼠标操作
+on-button-left=dismiss
+on-button-middle=invoke-default-action
+on-button-right=dismiss-all
+
+# --- 图标 ---
+icons=1
+max-icon-size=48
+# 确保安装了图标主题，例如 Papirus 或 Adwaita
+
+# --- 分组与历史 ---
+# 是否将相同应用的通知归为一组
+group-by=app-name
+
+# --- 特殊样式 (例如：紧急通知变红) ---
+[urgency=critical]
+background-color=#bf616a
+text-color=#eceff4
+border-color=#eceff4
+default-timeout=0

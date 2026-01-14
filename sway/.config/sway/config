@@ -1,0 +1,289 @@
+# 设置主键
+set $mod Mod4
+# 字体设置
+# font pango:Maple Mono NF CN 13
+# font pango:Noto Sans CJK SC 13
+font pango:Inter, HarmonyOS Sans SC 16
+# 开机自动启动桌面
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex --autostart --environment sway
+# 锁屏
+exec_always --no-startup-id swayidle -w \
+  timeout 300 'swaylock -f' \
+  timeout 600 'swaymsg "output * power off"' \
+  resume 'swaymsg "output * power on"' \
+  before-sleep 'swaylock -f'
+# 网络，蓝牙托盘
+exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
+exec --no-startup-id lxpolkit
+# 音量调整
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -1% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+# 拖拽浮动窗口位置
+floating_modifier $mod
+# 终端绑定
+# bindsym $mod+Return exec ~/.local/share/alacritty/alacritty
+set $term foot
+bindsym $mod+Return exec $term
+# 关闭窗口
+bindsym $mod+Shift+q kill
+# rofi启动
+# bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+d exec --no-startup-id rofi -show drun -run-shell-command '{terminal} -e bash -ic "{cmd} && read"'
+
+# 窗口排布
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+g split h
+
+# split in vertical orientation
+bindsym $mod+c split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+f floating toggle
+
+# change focus between tiling / floating windows
+# bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+# bindsym $mod+a focus parent
+
+# 文件管理器
+bindsym $mod+a exec --no-startup-id nemo
+
+# 剪切板
+exec --no-startup-id wl-paste --type text --watch cliphist store
+exec --no-startup-id wl-paste --type image --watch cliphist store
+bindsym $mod+v exec cliphist list | rofi -dmenu -p "Clipboard" -theme "~/.config/rofi/squared-everforest.rasi"| cliphist decode | wl-copy
+
+# 工作区设置
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1 
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# reload the configuration file
+bindsym $mod+Shift+r reload
+
+# sway关机 
+bindsym $mod+o exec "bash ~/.config/rofi/powermenu/type-2/powermenu.sh"
+
+# 截图
+bindsym $mod+Print exec grim - | wl-copy
+bindsym Mod1+a exec grim -g "$(slurp)" - | wl-copy
+bindsym Print exec grim -g "$(slurp)" ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png
+
+# resize window (you can also use the mouse for that)
+mode "." {
+        # These bindings trigger as soon as you enter the resize mode
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "."
+
+
+# xwayland支持
+xwayland enable
+exec_always --no-startup-id dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+# 启动 Fcitx5 输入法
+# exec --no-startup-id fcitx5 &
+exec --no-startup-id fcitx5 -d --replace
+
+# 启动通知服务
+exec mako
+# 按一下开启 DND，再按一下关闭 DND
+bindsym $mod+Shift+n exec makoctl mode -t dnd
+
+# 小键盘支持
+input * xkb_numlock enabled
+
+# 壁纸设置
+output * bg ~/.config/sway/png/default.png fill
+
+# 动态分布窗口
+exec_always autotiling -w 1 2 5 7 9
+
+# 自动挂载
+# exec --no-startup-id udiskie -t
+
+# 手势切换工作区
+bindgesture swipe:left  workspace next
+bindgesture swipe:right workspace prev
+
+# 指定浮动 swaymsg -t get_tree
+for_window [app_id="localsend_app"] floating enable,resize set 1200 800, move position center
+for_window [app_id="org.gnome.FileRoller"] floating enable
+for_window [app_id="fdm"] floating enable, resize set 1200 800, move position center
+for_window [app_id="org.nomacs.ImageLounge"] floating enable,resize set 1200 800, move position center
+for_window [app_id="matplotlib"] floating enable,resize set 1200 800, move position center
+# for_window [app_id="Zathura"] floating enable,resize set 1200 800, move position center
+for_window [class="wechat"] floating enable, move position center
+for_window [class="ONLYOFFICE"] floating enable,resize set 1200 800, move position center
+for_window [app_id="nemo"] floating enable,resize set 1200 800, move position center
+
+# 语法： assign [筛选条件] workspace <工作区名称/编号>
+# # 启动打开应用
+# assign [class="wechat"] workspace 9 
+# assign [app_id="nemo"] workspace 1 
+# assign [app_id="microsoft-edge"] workspace 2 
+
+# 窗口间隙
+gaps inner 3
+gaps outer 2
+# 设置窗口边框
+default_border pixel 2
+default_floating_border pixel 2
+hide_edge_borders smart
+# default_border none
+
+# 启用智能间隙
+# smart_gaps on
+
+# =========================================
+# Catppuccin Mocha 深色主题配色
+# =========================================
+set $rosewater #f5e0dc
+set $flamingo  #f2cdcd
+set $pink      #f5c2e7
+set $mauve     #cba6f7
+set $red       #f38ba8
+set $maroon    #eba0ac
+set $peach     #fab387
+set $yellow    #f9e2af
+set $green     #a6e3a1
+set $teal      #94e2d5
+set $sky       #89dceb
+set $sapphire  #74c7ec
+set $blue      #89b4fa
+set $lavender  #b4befe
+set $text      #cdd6f4
+set $subtext1  #bac2de
+set $subtext0  #a6adc8
+set $overlay2  #9399b2
+set $overlay1  #7f849c
+set $overlay0  #6c7086
+set $surface2  #585b70
+set $surface1  #45475a
+set $surface0  #313244
+set $base      #1e1e2e
+set $mantle    #181825
+set $crust     #11111b
+
+# 窗口颜色设置
+# class                 border     backgr.    text       indicator  child_border
+client.focused          $mauve     $base      $text      $rosewater $mauve
+client.focused_inactive $overlay0  $base      $text      $rosewater $overlay0
+client.unfocused        $overlay0  $base      $text      $rosewater $overlay0
+client.urgent           $red       $base      $peach     $overlay0  $red
+client.placeholder      $overlay0  $base      $text      $overlay0  $overlay0
+client.background       $base
+
+# bar
+bar {
+	font pango:JetBrainsMono Nerd Font 12
+	position top
+	status_command i3status-rs ~/.config/i3status-rust/config.toml
+	# mode hide
+	# hidden_state hide
+	# modifier Mod1
+	tray_output none
+	icon_theme Papirus
+	tray_padding 1
+	strip_workspace_numbers yes
+	colors {
+		background         #1a1b26
+		statusline         #c0caf5
+		focused_statusline #c0caf5
+		focused_separator  #1a1b26
+
+		# target           border  bg       text
+		focused_workspace  #1a1b26 #7aa2f7  #1a1b26
+		active_workspace   #1a1b26 #414868  #c0caf5
+		inactive_workspace #1a1b26 #24283b  #565f89
+		urgent_workspace   #1a1b26 #f7768e  #1a1b26
+	}
+}

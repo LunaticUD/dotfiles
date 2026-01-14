@@ -1,0 +1,20 @@
+! 启用抗锯齿（必须）
+Xft.antialias: 1
+
+! 开启微调（Hinting），但程度设为“轻微”（Slight）
+! macOS 实际上几乎不使用 Hinting，但 Linux 下完全关闭(hintnone)可能会导致某些字体过虚，
+! hintslight 是在清晰度和 macOS 风格之间的最佳平衡点。
+Xft.hinting: 1
+Xft.hintstyle: hintslight
+
+! 次像素渲染顺序，绝大多数现代屏幕都是 rgb
+Xft.rgba: rgb
+
+! LCD 滤镜，减少彩色边缘
+Xft.lcdfilter: lcddefault
+
+! DPI 设置（关键！）
+! macOS 的清晰度很大程度上依赖于高 DPI（Retina）。
+! 如果你是 1080p 屏幕，设为 96。
+! 如果是 2K/4K 高分屏，务必根据实际情况设置（如 144, 192 等），否则字体会细如发丝。
+Xft.dpi: 96

@@ -1,0 +1,92 @@
+# =========================================================
+# 1. 主题设置 (Theme)
+# =========================================================
+[general]
+import = [
+    "~/.config/alacritty/themes/themes/catppuccin_mocha.toml"
+]
+# =========================================================
+# 1. 窗口设置 (Window)
+# =========================================================
+[window]
+opacity = 0.95
+padding = { x = 2, y = 1 } 
+decorations = "None"       
+blur = false
+dynamic_title = true
+
+# =========================================================
+# 2. 字体设置 (Fonts)
+# =========================================================
+[font]
+size = 15.0 
+
+[font.normal]
+family = "Maple Mono NF CN"
+style = "Regular"
+
+[font.bold]
+family = "Maple Mono NF CN"
+style = "Bold"
+
+[font.italic]
+family = "Maple Mono NF CN"
+style = "Italic"
+
+# =========================================================
+# 3. 光标 (Cursor)
+# =========================================================
+[cursor]
+style = { shape = "Block", blinking = "Never" }
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+# =========================================================
+# 4. 鼠标 (Mouse)
+# =========================================================
+[mouse]
+hide_when_typing = true
+
+# =========================================================
+# 5. 按键映射 (Key Bindings)
+# =========================================================
+# # 复制粘贴
+[[keyboard.bindings]]
+key = "C"
+mods = "Control"
+action = "Copy"
+
+[[keyboard.bindings]]
+key = "V"
+mods = "Control"
+action = "Paste"
+
+[[keyboard.bindings]]
+# 这样以后要杀掉程序时，记得按 Ctrl+Alt+C
+key = "C" 
+mods = "Control|Shift" 
+chars = "\u0003" 
+
+# 字体缩放
+[[keyboard.bindings]]
+key = "Plus"
+mods = "Control"
+action = "IncreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Minus"
+mods = "Control"
+action = "DecreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Key0"
+mods = "Control"
+action = "ResetFontSize"
+
+# 启动新实例
+[[keyboard.bindings]]
+key = "D"
+mods = "Control"
+action = "SpawnNewInstance"
