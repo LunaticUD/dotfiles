@@ -117,9 +117,48 @@ export GDK_BACKEND=wayland,x11
 # Rustup mirror
 export RUSTUP_DIST_SERVER=https://rsproxy.cn
 export RUSTUP_UPDATE_ROOT=https://rsproxy.cn/rustup
-# nvim
-alias n="/usr/local/bin/nvim.appimage"
-alias sn="sudoedit"
+# # >>> nvim config >>>
+# alias n="/usr/local/bin/nvim.appimage"
+# alias sn="sudoedit"
+n() {
+    # 直接使用你截图里定义的 VISUAL 变量 (即 /usr/local/bin/nvim.appimage)
+    # 如果 VISUAL 没定义，就退回到 "nvim" 命令
+    local editor="${VISUAL:-nvim}"
+    # 1. 如果没有参数，直接打开编辑器
+    if [ $# -eq 0 ]; then
+        "$editor"
+        return
+    fi
+    # 2. 检查是否有权限限制
+    local use_sudo=0
+    for file in "$@"; do
+        if [ -e "$file" ]; then
+            # 文件存在且当前用户不可写 -> 需要 sudo
+            if [ ! -w "$file" ]; then
+                use_sudo=1
+                break
+            fi
+        else
+            # 文件不存在（新建），检查父目录是否可写
+            local dir=$(dirname "$file")
+            [ "$dir" = "." ] && dir=$(pwd)
+            
+            if [ ! -w "$dir" ]; then
+                use_sudo=1
+                break
+            fi
+        fi
+    done
+    # 3. 执行
+    if [ $use_sudo -eq 1 ]; then
+        echo "🔒 [sudo] 正在编辑受保护文件..."
+        # 这里的关键是告诉 sudoedit 使用你的 appimage
+        SUDO_EDITOR="$editor" sudoedit "$@"
+    else
+        "$editor" "$@"
+    fi
+}
+# <<< nvim config <<<
 # axel下载
 alias ax="axel -n 10"
 # nala映射
@@ -150,9 +189,6 @@ alias c="clear"
 alias ll="ls -lAFh"
 alias cp="cp -iv"
 alias mv="mv -iv"
-
-# 禁止生成 core dump 文件
-ulimit -c 0
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba shell init' !!

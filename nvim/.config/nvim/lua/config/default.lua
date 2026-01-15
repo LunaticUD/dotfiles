@@ -59,3 +59,13 @@ vim.opt.timeoutlen = 500
 vim.opt.wrap = false
 -- bar
 vim.o.showtabline = 2
+-- 自动保存
+-- 创建一个自动命令组
+local autosave_group = vim.api.nvim_create_augroup("AutoSave", { clear = true })
+
+vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", "FocusLost" }, {
+	group = autosave_group,
+	pattern = "*", -- 对所有文件生效
+	command = "silent! wall", -- 静默保存所有更改
+	nested = true,
+})

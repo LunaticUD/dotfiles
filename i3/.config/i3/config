@@ -81,7 +81,7 @@ bindsym $mod+a exec --no-startup-id nemo
 # 剪切板
 #bindsym $mod+d focus child
 exec --no-startup-id greenclip daemon>/dev/null
-bindsym $mod+v exec --no-startup-id rofi -theme "~/.config/rofi/squared-everforest.rasi" -modi "clipboard:greenclip print" -show clipboard -run-command 'xdotool type --delay 0 "{cmd}"' 
+bindsym $mod+v exec --no-startup-id rofi -theme "~/.config/rofi/theme/squared-everforest.rasi" -modi "clipboard:greenclip print" -show clipboard -run-command 'xdotool type --delay 0 "{cmd}"' 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
