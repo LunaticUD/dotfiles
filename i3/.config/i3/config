@@ -163,7 +163,7 @@ exec --no-startup-id numlockx on
 exec --no-startup-id feh --bg-fill ~/.config/i3/png/default.png
 # exec_always --no-startup-id ~/.config/i3/script/wallpaper_daemon.sh
 ### Autostart
-exec_always --no-startup-id autotiling -w 1 2 5 7 9
+# exec_always --no-startup-id autotiling -w 1 2 5 7 9
 # exec --no-startup-id udiskie -t
 exec_always --no-startup-id picom
 # 启动触摸板手势服务
