@@ -19,7 +19,7 @@ dynamic_title = true
 # 2. 字体设置 (Fonts)
 # =========================================================
 [font]
-size = 15.0 
+size = 11.0 
 
 [font.normal]
 family = "Maple Mono NF CN"
