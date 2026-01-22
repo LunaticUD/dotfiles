@@ -14,7 +14,7 @@ vim.cmd.colorscheme("catppuccin")
 vim.opt.guifont = {
 	"Maple Mono NF CN",
 	"LXGW WenKai",
-	"h15",
+	"h11",
 }
 if vim.g.neovide then
 	-- 基础美化
@@ -25,7 +25,7 @@ if vim.g.neovide then
 	vim.opt.guifont = {
 		"Maple Mono NF CN",
 		"LXGW WenKai",
-		"h15",
+		"h11",
 	}
 	-- 性能优化
 	vim.g.neovide_refresh_rate = 60
