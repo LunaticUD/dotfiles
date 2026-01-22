@@ -1,5 +1,3 @@
 alacritty/.config/alacritty/themes
 zsh/.zhistory
-zsh/.zim/modules/nekolight
-zsh/.zim/modules/zsh-autopair
-zsh/.zim/modules/zsh-vi-mode
+zsh/.zim/modules/
