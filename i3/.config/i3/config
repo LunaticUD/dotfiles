@@ -163,6 +163,13 @@ exec --no-startup-id numlockx on
 exec --no-startup-id feh --bg-fill ~/.config/i3/png/default.png
 # exec_always --no-startup-id ~/.config/i3/script/wallpaper_daemon.sh
 ### Autostart
+exec_always --no-startup-id  $HOME/.config/i3/i3-master-stack/i3_master
+# swap to master node
+bindsym $mod+m nop swap master 
+# go to master node
+bindsym $mod+shift+m nop go master 
+# enable/disable master layout in current workspace
+bindsym $mod+alt+m nop master toggle 
 # exec --no-startup-id udiskie -t
 exec_always --no-startup-id picom
 # 启动触摸板手势服务
