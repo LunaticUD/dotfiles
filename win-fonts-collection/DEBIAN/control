@@ -1,9 +1,0 @@
-Package: win-fonts-collection
-Version: 1.0.0
-Section: fonts
-Priority: optional
-Architecture: all
-Maintainer: LunaticUD <3223079741@qq.com>
-Description: A collection of Windows fonts
- This package contains standard Windows fonts including
- Arial, Times New Roman, and others for use on Linux systems.

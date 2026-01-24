@@ -1,7 +1,0 @@
-#!/bin/sh
-set -e
-# 卸载后刷新缓存
-if [ "$1" = "remove" ]; then
-    fc-cache -f -v
-fi
-exit 0
