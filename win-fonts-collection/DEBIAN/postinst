@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+# 刷新字体缓存
+fc-cache -f -v
+exit 0
