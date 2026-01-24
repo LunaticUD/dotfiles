@@ -1,52 +1,62 @@
 return {
-	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		priority = 1000,
-		opts = {
-			transparent_background = true,
-			no_italic = true,
+	"nanozuki/tabby.nvim",
+	dependencies = "nvim-tree/nvim-web-devicons",
+	config = function()
+		local theme = {
+			fill = "TabLineFill",
+			head = "TabLine",
+			current_tab = "TabLineSel",
+			tab = "TabLine",
+			win = "TabLine",
+			tail = "TabLine",
+		}
+		require("tabby").setup({
+			line = function(line)
+				return {
+					{
+						{ "  ", hl = { fg = "#7FBBB3", bg = "#414B50" } },
+						line.sep("", theme.head, theme.fill),
+					},
+					line.tabs().foreach(function(tab)
+						local hl = tab.is_current() and theme.current_tab or theme.tab
 
-			custom_highlights = function(colors)
-			-- stylua: ignore
-			return {
-			  LineNr     = { fg = colors.surface2 },
-			  Visual     = { bg = colors.overlay0 },
-			  Search     = { bg = colors.surface2 },
-			  IncSearch  = { bg = colors.mauve },
-			  CurSearch  = { bg = colors.mauve },
-			  Comment = { 
-				  fg = colors.flamingo,
-				  bold = true,
-				  underline = false
-			},
-			  MatchParen = { bg = colors.mauve, fg = colors.base, bold = true },
-			}
+						-- remove count of wins in tab with [n+] included in tab.name()
+						local name = tab.name()
+						local index = string.find(name, "%[%d")
+						local tab_name = index and string.sub(name, 1, index - 1) or name
+
+						-- indicate if any of buffers in tab have unsaved changes
+						local modified = false
+						local win_ids = require("tabby.module.api").get_tab_wins(tab.id)
+						for _, win_id in ipairs(win_ids) do
+							if pcall(vim.api.nvim_win_get_buf, win_id) then
+								local bufid = vim.api.nvim_win_get_buf(win_id)
+								if vim.api.nvim_buf_get_option(bufid, "modified") then
+									modified = true
+									break
+								end
+							end
+						end
+
+						return {
+							line.sep("", hl, theme.fill),
+							tab.number(),
+							tab_name,
+							modified and "",
+							tab.close_btn(""),
+							line.sep("", hl, theme.fill),
+							hl = hl,
+							margin = " ",
+						}
+					end),
+					line.spacer(),
+					{
+						line.sep("", theme.tail, theme.fill),
+						{ "  ", hl = theme.tail },
+					},
+					hl = theme.fill,
+				}
 			end,
-			integrations = {
-				-- barbar = true,
-				blink_cmp = true,
-				-- gitsigns = true,
-				mason = true,
-				noice = true,
-				-- nvimtree = true,
-				-- rainbow_delimiters = true,
-				snacks = {
-					enabled = true,
-					indent_scope_color = "flamingo", -- catppuccin color (eg. `lavender`) Default: text
-				},
-				-- which_key = true,
-				-- flash = true,
-				-- lsp_trouble = true,
-			},
-		},
-		-- styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-		-- 	comments = { "bold", "underline" }, -- Change the style of comments
-		-- },
-		-- -- config = function(_, opts)
-		-- -- 	require("catppuccin").setup(opts)
-		-- --
-		-- -- 	vim.cmd.colorscheme("catppuccin")
-		-- -- end,
-	},
+		})
+	end,
 }

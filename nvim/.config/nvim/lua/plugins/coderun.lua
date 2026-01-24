@@ -2,7 +2,7 @@ return {
 	"CRAG666/code_runner.nvim",
 	dependencies = { "nvim-lua/plenary.nvim" },
 	keys = {
-		{ "<leader>r", "<cmd>RunCode<cr>", desc = "Run Code" },
+		{ "<leater>r", "<cmd>RunCode<cr>", desc = "Run Code" },
 		{ "<ESC>", "<cmd>RunClose<cr>", desc = "Run Quite" },
 	},
 	opts = {
