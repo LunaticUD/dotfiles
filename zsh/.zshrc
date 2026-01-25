@@ -189,6 +189,11 @@ alias c="clear"
 alias ll="ls -lAFh"
 alias cp="cp -iv"
 alias mv="mv -iv"
+# git
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba shell init' !!

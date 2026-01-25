@@ -8,5 +8,5 @@
  **/
 
 * {
-    font: "MapleMono NF CN 12";
+    font: "JetBrainsMono Nerd Font 12";
 }
