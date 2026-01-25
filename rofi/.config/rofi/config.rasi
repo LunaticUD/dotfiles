@@ -1,5 +1,5 @@
 configuration {
-    font:"Maple Mono NF CN 16";
+    font:"MapleMono NF CN 16";
     show-icons: true;
     // Catppuccin-Macchiato
     icon-theme:"Numix";

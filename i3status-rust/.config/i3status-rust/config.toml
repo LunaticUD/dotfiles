@@ -36,18 +36,18 @@ block = "backlight"
 format = " $icon "
 
 # --- 通知 ---
-[[block]]
-block = "custom"
-# dunst：paused=true 视为勿扰 -> 显示 🔕，否则显示 🔔
-command = "dunstctl is-paused 2>/dev/null | grep -qx true && echo '' || echo ''"
-# 只有收到信号或被点击时才更新
-interval = "once"
-# 对应 pkill -SIGRTMIN+8 i3status-rs
-signal = 8
-[[block.click]]
-button = "left"
-# 点击切换 dunst 勿扰
-cmd = "~/.config/i3/script/dunst-toggle.sh"
+# [[block]]
+# block = "custom"
+# # dunst：paused=true 视为勿扰 -> 显示 🔕，否则显示 🔔
+# command = "dunstctl is-paused 2>/dev/null | grep -qx true && echo '' || echo ''"
+# # 只有收到信号或被点击时才更新
+# interval = "once"
+# # 对应 pkill -SIGRTMIN+8 i3status-rs
+# signal = 8
+# [[block.click]]
+# button = "left"
+# # 点击切换 dunst 勿扰
+# cmd = "~/.config/i3/script/dunst-toggle.sh"
 
 # --- 时间 ---
 [[block]]

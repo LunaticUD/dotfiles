@@ -1,0 +1,31 @@
+patch:
+  # 针对 rime-ice 的默认配置，ascii_mode 通常在第一个位置 (下标0)
+  # reset: 1 表示默认英文，0 表示默认中文
+  "switches/@0/reset": 1
+  # 2. 彻底从引擎中移除英文翻译器和 Emoji 滤镜
+  # 我们通过重写 engine 里的列表，剔除掉不需要的部分
+
+  # 移除 translators 里的英文相关项 (melt_eng, cn_en)
+  "engine/translators":
+    - punct_translator
+    - script_translator
+    - lua_translator@*date_translator
+    - lua_translator@*lunar
+    - lua_translator@*uuid
+    - table_translator@custom_phrase
+    - table_translator@radical_lookup
+    - lua_translator@*unicode
+    - lua_translator@*number_translator
+    - lua_translator@*calc_translator
+    - lua_translator@*force_gc
+
+  # 移除 filters 里的 Emoji 和 英文自动大写、降权滤镜
+  "engine/filters":
+    - lua_filter@*corrector
+    - reverse_lookup_filter@radical_reverse_lookup
+    - lua_filter@*v_filter
+    - lua_filter@*pin_cand_filter
+    - lua_filter@*long_word_filter
+    - simplifier@traditionalize     # 保留简繁切换
+    - lua_filter@*search@radical_pinyin
+    - uniquifier
