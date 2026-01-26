@@ -1,1 +1,0 @@
-find  *.sh | entr rofi -modi "Global Search":"./rofi-ag.sh" -show "Global Search" \ -matching regex

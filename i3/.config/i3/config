@@ -163,13 +163,8 @@ exec --no-startup-id numlockx on
 exec --no-startup-id feh --bg-fill ~/.config/i3/png/default.png
 # exec_always --no-startup-id ~/.config/i3/script/wallpaper_daemon.sh
 ### Autostart
-exec_always --no-startup-id  $HOME/.config/i3/i3-master-stack/i3_master
-# swap to master node
-bindsym $mod+q nop swap master 
-# go to master node
-bindsym $mod+shift+m nop go master 
-# enable/disable master layout in current workspace
-bindsym $mod+alt+m nop master toggle 
+exec --no-startup-id $HOME/.config/i3/script/master-stack
+bindsym $mod+Tab exec --no-startup-id $HOME/.config/i3/script/swapper
 # exec --no-startup-id udiskie -t
 exec_always --no-startup-id picom
 # 启动触摸板手势服务
@@ -189,13 +184,13 @@ for_window [class="matplotlib"] floating enable,resize set 1200 800, move positi
 for_window [class="wechat"] floating enable,resize set 1200 800, move position center
 
 # 窗口间隙
-gaps inner 5
-gaps outer 2
+gaps inner 3
+gaps outer 1
 # 窗口标题居中
 title_align center
 # 设置窗口边框
-default_border pixel 0
-default_floating_border pixel 0
+default_border pixel 1
+default_floating_border pixel 1
 hide_edge_borders smart
 default_border none
 # 启用智能间隙

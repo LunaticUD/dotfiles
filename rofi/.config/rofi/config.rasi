@@ -11,7 +11,8 @@ configuration {
     // display-filebrowser: "󰉋 filebrowser:";
 }
 
-@theme "~/.config/rofi/theme/simple-tokyonight.rasi"
+@theme "~/.config/rofi/theme/rounded-purple-dark.rasi"
+// simple-tokyonight.rasi"
 // rounded-blue-dark.rasi"
 // catppuccin-lavrent-mocha.rasi"
 
