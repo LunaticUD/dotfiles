@@ -1,0 +1,56 @@
+;; 显示行号
+(global-display-line-numbers-mode t)
+;; 括号匹配高亮
+(electric-pair-mode t)
+;; 选中时输入替换文本
+(delete-selection-mode t)
+;; 简短回答
+(setq use-short-answers t)
+(define-key y-or-n-p-map [return] 'act)
+;; all-the-icons
+(use-package all-the-icons
+  :if (display-graphic-p))
+;; 在 Dired 模式中显示图标，让文件管理更好看
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+;; 状态栏
+;; 1. 定义一个“右对齐”的占位符函数
+(defun my-mode-line-fill-right ()
+  "Return empty space string that aligns following text to right."
+  (propertize " " 'display '((space :align-to (- right 10))))) 
+
+;; 2. 重新定义 mode-line-format
+(setq-default mode-line-format
+              (list
+               ;; --- 左侧内容 ---
+               " "
+               ;; 文件状态 (●/🔒/-)
+               '(:eval (cond (buffer-read-only
+                              (propertize "🔒" 'face 'font-lock-comment-face))
+                             ((buffer-modified-p)
+                              (propertize "" 'face 'error))
+                             (t
+                              (propertize "●" 'face 'success))))
+               "  "
+               ;; 缓冲区名称 (加粗)
+               (propertize "%b" 'face 'bold)
+               ;; --- 右侧内容 ---
+               ;; 主模式
+               " "
+               (propertize "%m" 'face 'font-lock-string-face)
+               " "
+               ;; --- 中间占位符 (把后面的推到右边) ---
+               '(:eval (my-mode-line-fill-right))
+               ;; 行号:列号
+               " "
+               (propertize "%l:%c" 'face 'font-lock-constant-face)
+               " "
+               ))
+
+;; 非激活窗口设为更暗，以示区分
+(set-face-attribute 'mode-line-inactive nil
+                    :background "#1B1C16"  ; 比背景更黑一点
+                    :foreground "#75715E"
+                    :box nil)
+
+(provide 'init-base)
