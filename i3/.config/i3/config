@@ -21,7 +21,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # 拖拽浮动窗口位置
 floating_modifier $mod
 # 终端绑定
-bindsym $mod+Return exec  --no-startup-id ~/.local/share/alacritty/alacritty
+bindsym $mod+Return exec --no-startup-id alacritty
 # kill focused window
 bindsym $mod+Shift+q kill
 # 强制杀死

@@ -15,7 +15,7 @@ bat_charging = "|^| "
 # --- WiFi 模块 ---
 [[block]]
 block = "net"
-format = " $icon "
+format = "$icon"
 interval = 5
 [[block.click]]
 button = "left"
@@ -33,7 +33,7 @@ cmd = "bash ~/.config/i3/script/bluetooth -theme '~/.config/i3status-rust/theme/
 # --- 屏幕亮度 (内置块) ---
 [[block]]
 block = "backlight"
-format = " $icon "
+format = ""
 
 # --- 通知 ---
 # [[block]]
@@ -53,7 +53,7 @@ format = " $icon "
 [[block]]
 block = "time"
 interval = 5
-format = " $timestamp.datetime(f:'%A %p %I:%M') "
+format = " $timestamp.datetime(f:'%A %p %I:%M')"
 
 [[block]]
 block = "custom"
