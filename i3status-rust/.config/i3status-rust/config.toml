@@ -12,23 +12,23 @@ icons = "awesome6"
 bat = ["|E|", "|_|", "|=|", "|F|"]
 bat_charging = "|^| "
 
-# --- WiFi 模块 ---
-[[block]]
-block = "net"
-format = "$icon"
-interval = 5
-[[block.click]]
-button = "left"
-cmd = "bash ~/.config/i3/script/wifi-menu.sh" 
-
-# --- 蓝牙模块 ---
-[[block]]
-block = "custom"
-command = "echo  "  # 这里显示蓝牙图标
-interval = "once"
-[[block.click]]
-button = "left"
-cmd = "bash ~/.config/i3/script/bluetooth -theme '~/.config/i3status-rust/theme/simple-tokyonight.rasi' -timeout 5"
+# # --- WiFi 模块 ---
+# [[block]]
+# block = "net"
+# format = "$icon"
+# interval = 5
+# [[block.click]]
+# button = "left"
+# cmd = "bash ~/.config/i3/script/wifi-menu.sh" 
+#
+# # --- 蓝牙模块 ---
+# [[block]]
+# block = "custom"
+# command = "echo  "  # 这里显示蓝牙图标
+# interval = "once"
+# [[block.click]]
+# button = "left"
+# cmd = "bash ~/.config/i3/script/bluetooth -theme '~/.config/i3status-rust/theme/simple-tokyonight.rasi' -timeout 5"
 
 # --- 屏幕亮度 (内置块) ---
 [[block]]

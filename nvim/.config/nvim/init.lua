@@ -18,14 +18,14 @@ vim.opt.guifont = {
 }
 if vim.g.neovide then
 	-- 基础美化
-	vim.g.neovide_opacity = 0.75 -- 透明度
+	vim.g.neovide_opacity = 0.85 -- 透明度
 	vim.g.neovide_cursor_vfx_mode = "railgun" -- 炫酷的光标粒子效果
 	-- 字体
 	-- vim.opt.guifont = "Maple Mono NF CN:h15"
 	vim.opt.guifont = {
 		"Maple Mono NF CN",
 		"LXGW WenKai",
-		"h11",
+		"h7",
 	}
 	-- 性能优化
 	vim.g.neovide_refresh_rate = 60
