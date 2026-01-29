@@ -8,4 +8,4 @@
 ;; 3. 依次加载模块
 (require 'init-packages)
 (require 'init-base)
-(require 'init-code)
+(require 'init-vim)

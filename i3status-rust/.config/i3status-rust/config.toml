@@ -55,11 +55,11 @@ block = "time"
 interval = 5
 format = " $timestamp.datetime(f:'%A %p %I:%M')"
 
-[[block]]
-block = "custom"
-command = "echo  "  # 这是一个电源图标 (Nerd Font)
-interval = "once"
-[[block.click]]
-button = "left"
-# 替换为你关机脚本的绝对路径
-cmd = "~/.config/rofi/powermenu/type-4/powermenu.sh"
+# [[block]]
+# block = "custom"
+# command = "echo  "  # 这是一个电源图标 (Nerd Font)
+# interval = "once"
+# [[block.click]]
+# button = "left"
+# # 替换为你关机脚本的绝对路径
+# cmd = "~/.config/rofi/powermenu/type-4/powermenu.sh"
