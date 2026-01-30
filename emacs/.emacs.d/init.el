@@ -8,4 +8,8 @@
 ;; 3. 依次加载模块
 (require 'init-packages)
 (require 'init-base)
-(require 'init-vim)
+;; (require 'init-vim)	
+(require 'init-lsp)
+(require 'init-conda)
+(require 'init-dired)
+(require 'init-tab)

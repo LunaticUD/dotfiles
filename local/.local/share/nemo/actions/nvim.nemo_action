@@ -2,7 +2,7 @@
 Name=使用Nvim打开
 Comment=Auto-detect sudo requirement
 # alacritty -e nvim
-Exec=neovide "%F"
+Exec=./nemo-nvim-open "%F"
 Icon=~/.local/share/neovide/neovide.ico
 # --- 关键限制设置 ---
 # Selection=s 表示仅在选中单个对象时显示

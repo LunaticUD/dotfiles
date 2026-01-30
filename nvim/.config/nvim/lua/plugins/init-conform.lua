@@ -6,7 +6,7 @@ return {
 	opts = {
 		formatters_by_ft = {
 			lua = { "stylua" },
-			python = { "isort", "black" },
+			python = { "isort" },
 			rust = { "rust-analyzer", lsp_format = "fallback" },
 			toml = { "templ" },
 			html = { "djlint" },

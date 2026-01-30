@@ -1,5 +1,6 @@
-;; 显示行号
-(global-display-line-numbers-mode t)
+;; 显示行号,只在编辑模式里开
+(dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
+  (add-hook hook #'display-line-numbers-mode))
 ;; 括号匹配高亮
 (electric-pair-mode t)
 ;; 选中时输入替换文本
@@ -10,9 +11,6 @@
 ;; all-the-icons
 (use-package all-the-icons
   :if (display-graphic-p))
-;; 在 Dired 模式中显示图标，让文件管理更好看
-(use-package all-the-icons-dired
-  :hook (dired-mode . all-the-icons-dired-mode))
 ;; 状态栏
 ;; 1. 定义一个“右对齐”的占位符函数
 (defun my-mode-line-fill-right ()
@@ -46,7 +44,8 @@
                (propertize "%l:%c" 'face 'font-lock-constant-face)
                " "
                ))
-
+;; 设置默认光标
+(setq-default cursor-type 'bar)
 ;; 非激活窗口设为更暗，以示区分
 (set-face-attribute 'mode-line-inactive nil
                     :background "#1B1C16"  ; 比背景更黑一点

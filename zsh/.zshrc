@@ -373,3 +373,6 @@ zstyle ':completion:*' ignore-parents parent pwd
 # 禁用旧式补全的哔哔声
 setopt no_list_beep
 eval "$(direnv hook zsh)"
+
+# Created by `pipx` on 2026-01-30 01:05:36
+export PATH="$PATH:/home/loong/.local/bin"

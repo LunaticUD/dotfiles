@@ -1,23 +1,32 @@
 #!/bin/bash
 
-# 获取传入的文件路径
-TARGET="$1"
+# 1. 获取传入的文件路径（绝对路径）
+# 使用 readlink 获取完整路径，防止相对路径导致 cd 失败
+TARGET=$(readlink -f "$1")
+PARENT_DIR=$(dirname "$TARGET")
+FILE_NAME=$(basename "$TARGET")
 
-# 检查文件是否存在
-if [ ! -e "$TARGET" ]; then
-    # 如果文件不存在，检查所在目录是否有写权限
-    PARENT_DIR=$(dirname "$TARGET")
-    if [ -w "$PARENT_DIR" ]; then
-        nvim "$TARGET"
-    else
-        sudo -e "$TARGET"
-    fi
-# 检查当前用户是否有写权限 (-w)
-elif [ -w "$TARGET" ]; then
-    # 有权限：直接用 nvim
-    nvim "$TARGET"
+# 2. 检查目标文件所在的目录是否存在
+if [ ! -d "$PARENT_DIR" ]; then
+    echo "错误: 目录 $PARENT_DIR 不存在。"
+    exit 1
+fi
+
+# 3. 核心优化：跳转到文件所在目录
+# 这样 Neovide 启动后的 pwd (print working directory) 就是文件所在位置
+cd "$PARENT_DIR" || { echo "无法进入目录 $PARENT_DIR"; exit 1; }
+
+# 4. 权限判断与启动
+if [ ! -e "$FILE_NAME" ]; then
+    # 情况 A: 文件不存在（准备新建）
+    echo "文件不存在，准备在目录 $PARENT_DIR 中创建..."
+    neovide "$FILE_NAME"
+elif [ -w "$FILE_NAME" ]; then
+    # 情况 B: 文件存在且有写权限
+    neovide "$FILE_NAME"
 else
-    # 无权限：使用 sudoedit (等同于 sudo -e)
-    # 这会以当前用户的配置启动编辑器，但以 root 权限保存
-    sudo -e "$TARGET"
+    # 情况 C: 文件存在但无写权限
+    # 提示：建议在 Neovide 中配合 suda.vim 插件使用
+    echo "注意：你对 $FILE_NAME 没有写权限，建议配合 suda.vim 插件保存。"
+    neovide "$FILE_NAME"
 fi
