@@ -55,7 +55,7 @@
 (tooltip-mode -1)
 
 ;; Font Config	
-(let ((mono "JetBrains Mono")
+(let ((mono "Maple Mono NF CN")
       (cjk  "LXGW Neo XiHei Plus"))
   (set-face-attribute 'default nil :family mono :height 150)
   (set-face-attribute 'fixed-pitch nil :family mono :height 150)

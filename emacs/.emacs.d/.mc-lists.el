@@ -3,14 +3,27 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+	conda-env-activate
+	ess-eval-buffer
+	ess-eval-region-or-function-or-paragraph-and-step
+	evil-delete-backward-char-and-join
+	evil-delete-char
+	evil-force-normal-state
 	evil-insert
 	evil-mouse-drag-region
 	evil-normal-state
+	evil-yank
 	indent-for-tab-command
+	mouse-set-region
+	my/clear-scratch
+	toggle-input-method
 	))
 
 (setq mc/cmds-to-run-once
       '(
+	electric-pair-delete-pair
+	end-of-buffer
+	evil-backward-char
 	evil-mouse-drag-region
 	evil-search-next
 	))

@@ -1,17 +1,6 @@
 ;; 显示行号,只在编辑模式里开
 (dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
   (add-hook hook #'display-line-numbers-mode))
-;; vim keying
-(use-package evil
-  :init
-  (setq evil-want-integration t
-        evil-want-keybinding nil
-        evil-want-C-u-scroll t
-        evil-want-C-i-jump nil)
-  :defer t
-  :commands (evil-mode)
-  :hook
-  (after-init . evil-mode))
 ;; 分屏
 (setq split-height-threshold nil)
 (setq split-width-threshold 0)
@@ -37,6 +26,7 @@
 (use-package colorful-mode
   ;; :diminish
   :ensure t ; Optional
+  :defer t
   :custom
   (colorful-use-prefix t)
   (colorful-only-strings 'only-prog)
@@ -44,7 +34,6 @@
   :config
   (global-colorful-mode t)
   (add-to-list 'global-colorful-modes 'helpful-mode))
-;; rainbow
 ;; 状态栏
 ;; 1. 定义一个“右对齐”的占位符函数
 (defun my-mode-line-fill-right ()
@@ -63,20 +52,27 @@
                               (propertize "" 'face 'error))
                              (t
                               (propertize "●" 'face 'success))))
-               "  "
+               ""
                ;; 缓冲区名称 (加粗)
                (propertize "%b" 'face 'bold)
+               ;; ✅ 在名称右侧显示 pwd
+               "  🙶 "
+               '(:eval
+                 (propertize
+                  (abbreviate-file-name default-directory)
+                  'face 'font-lock-comment-face))
+	       " 🙷 "
                ;; --- 右侧内容 ---
                ;; 主模式
-               " "
+               "  Ⓜ "
                (propertize "%m" 'face 'font-lock-string-face)
-               " "
+               "  "
                ;; --- 中间占位符 (把后面的推到右边) ---
                '(:eval (my-mode-line-fill-right))
                ;; 行号:列号
-               " "
+               "  "
                (propertize "%l:%c" 'face 'font-lock-constant-face)
-               " "
+               "  "
                ))
 ;; 设置默认光标
 (setq-default cursor-type 'bar)
@@ -85,5 +81,9 @@
                     :background "#1B1C16"  ; 比背景更黑一点
                     :foreground "#75715E"
                     :box nil)
+;; ess
+(use-package ess
+  :defer t
+  :mode ("\\.R\\'" . R-mode))
 
 (provide 'init-base)
