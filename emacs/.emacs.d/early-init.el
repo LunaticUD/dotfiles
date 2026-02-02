@@ -44,7 +44,6 @@
 (setq-default bidi-display-reordering nil
 	          bidi-paragraph-direction 'left-to-right)
 
-
 ;;; Minimal Frame 
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
@@ -55,13 +54,18 @@
 
 (tooltip-mode -1)
 
-
-;;; Font Config
-(let ((mono-font "JetBrains Mono"))
-  (set-face-attribute 'default nil :family mono-font :height 150)
-  (set-face-attribute 'fixed-pitch nil :family mono-font :height 1.0)
-  (set-face-attribute 'variable-pitch nil :family mono-font :height 1.0))
-
+;; Font Config	
+(let ((mono "JetBrains Mono")
+      (cjk  "LXGW Neo XiHei Plus"))
+  (set-face-attribute 'default nil :family mono :height 150)
+  (set-face-attribute 'fixed-pitch nil :family mono :height 150)
+  (set-face-attribute 'variable-pitch nil :family mono :height 150)
+  (set-fontset-font t 'ascii  (font-spec :family mono))
+  (set-fontset-font t 'latin  (font-spec :family mono))
+  (set-fontset-font t 'symbol (font-spec :family mono))
+  ;; CJK 中文
+  (dolist (charset '(han kana cjk-misc bopomofo))
+    (set-fontset-font t charset (font-spec :family cjk :height 130))))
 
 ;;; Pesky Behaviour
 (setq inhibit-startup-buffer-menu t
@@ -132,5 +136,85 @@
 (setq auto-save-list-file-prefix nil)
 (setq create-lockfiles nil)
 (setq site-run-file nil)
+
+;; ----- 增强版 Python 运行配置 -----
+(with-eval-after-load 'python
+  ;; 1) 解释器设置：优先使用 IPython
+  (cond
+   ((executable-find "ipython3")
+    (setq python-shell-interpreter "ipython3"
+          python-shell-interpreter-args "-i --simple-prompt --no-autoindent"))
+   (t
+    (setq python-shell-interpreter "python3"
+          python-shell-interpreter-args "-i")))
+
+  ;; 禁用不稳定的原生补全（可选）
+  (setq python-shell-completion-native-enable nil)
+
+  ;; 2) 布局设置：Python REPL 窗口显示在右侧，占用 25% 宽度
+  (add-to-list 'display-buffer-alist
+               '("\\*Python\\*.*"
+                 (display-buffer-reuse-window display-buffer-in-side-window)
+                 (side . right)
+                 (slot . 0)
+                 (window-width . 0.25)))
+
+  ;; --- 功能函数定义 ---
+
+  (defun my/python-repl-toggle ()
+    "切换 Python REPL。如果正在运行，则关闭进程并杀死缓冲区；如果未运行，则在右侧启动它。"
+    (interactive)
+    (let ((proc (python-shell-get-process)))
+      (if (and proc (process-live-p proc))
+          ;; 关闭逻辑
+          (let ((buf (process-buffer proc)))
+            (delete-windows-on buf) ; 同时关闭显示该缓冲区的窗口
+            (kill-process proc)
+            (when (buffer-live-p buf)
+              (kill-buffer buf))
+            (message "Python REPL killed"))
+        ;; 启动逻辑
+        (run-python (python-shell-calculate-command) nil nil)
+        (let ((new-proc (python-shell-get-process)))
+          (when new-proc
+            (display-buffer (process-buffer new-proc)))))))
+
+  (defun my/python-send-selection-or-line ()
+    "发送选区或当前行到 Python REPL。如果 Region 激活，发送选区；否则发送当前行。如果 REPL 未启动，会自动启动。"
+    (interactive)
+    ;; 检查并启动 REPL
+    (unless (and (python-shell-get-process)
+                 (process-live-p (python-shell-get-process)))
+      (my/python-repl-toggle))
+    
+    (if (use-region-p)
+        (let ((beg (region-beginning))
+              (end (region-end)))
+          (python-shell-send-region beg end)
+          (deactivate-mark)
+          (message "Sent region to Python"))
+      (progn
+        (python-shell-send-region (line-beginning-position) (line-end-position))
+        (message "Sent line to Python"))))
+
+  ;; --- 按键绑定 ---
+
+  ;; 针对标准 python-mode
+  (let ((map python-mode-map))
+    (define-key map (kbd "<f5>") #'my/python-repl-toggle)
+    (define-key map (kbd "<C-return>") #'my/python-send-selection-or-line)
+    (define-key map (kbd "<S-return>") #'my/python-send-selection-or-line)
+    (define-key map (kbd "C-c C-c") #'python-shell-send-buffer))
+
+  ;; 针对 Emacs 29+ 的 python-ts-mode (Tree-sitter)
+  (when (boundp 'python-ts-mode-map)
+    (let ((map python-ts-mode-map))
+      (define-key map (kbd "<f5>") #'my/python-repl-toggle)
+      (define-key map (kbd "<C-return>") #'my/python-send-selection-or-line)
+      (define-key map (kbd "<S-return>") #'my/python-send-selection-or-line)
+      (define-key map (kbd "C-c C-c") #'python-shell-send-buffer))))
+
+
+
 
 (provide 'early-init)

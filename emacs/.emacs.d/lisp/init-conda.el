@@ -1,23 +1,32 @@
+;; 延迟加载
 (use-package conda
   :ensure t
   :init
-  ;; 1. 路径优化：确保路径解析正确
   (setq conda-anaconda-home (expand-file-name "~/miniforge3")
-        conda-env-home-directory (expand-file-name "~/miniforge3")
-        ;; 默认不自动激活，防止启动卡顿
+        conda-env-home-directory (expand-file-name "~/miniforge3/envs")
         conda-env-autoactivate-mode nil)
+  :defer t
   :config
-  ;; 2. 增强型初始化
-  (conda-env-initialize-interactive-shells)
-  (conda-env-initialize-eshell)
-  ;; 4. UI 增强：在 Mode-line 显示当前环境
+  ;; init once, only when you actually activate an env
+  (defvar my/conda-initialized nil)
+  (defun my/conda-init-once (&rest _)
+    (unless my/conda-initialized
+      (setq my/conda-initialized t)
+      (conda-env-initialize-interactive-shells)
+      (conda-env-initialize-eshell)))
+  (advice-add 'conda-env-activate :before #'my/conda-init-once)
+
+  ;; mode-line
   (add-to-list 'global-mode-string
-               '(:eval (when (bound-and-true-p conda-env-current-name)
-                         (format " 🐍(%s)" conda-env-current-name))))
+               '(:eval (let ((name (and (boundp 'conda-env-current-name)
+                                        conda-env-current-name)))
+                        (when (and name (stringp name)
+                                   (not (string-empty-p name)))
+                          (format " 🐍(%s)" name)))))
+
   :bind
-  ;; 使用 :bind 关键词让代码更整洁，且支持延迟加载
-  (("C-c v"   . conda-env-activate)
-   ("C-c V"   . conda-env-deactivate)))
+  (("C-c v" . conda-env-activate)
+   ("C-c V" . conda-env-deactivate)))
 
 
 (provide 'init-conda)

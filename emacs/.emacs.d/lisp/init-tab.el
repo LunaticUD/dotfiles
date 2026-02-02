@@ -1,5 +1,6 @@
 (use-package awesome-tab
   :load-path "~/.emacs.d/elpa/awesome-tab"
+  :defer t
   :config
   ;; 隐藏规则：
   ;; 1. * 开头的 buffer

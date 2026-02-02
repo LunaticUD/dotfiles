@@ -1,6 +1,28 @@
 ;; 显示行号,只在编辑模式里开
 (dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
   (add-hook hook #'display-line-numbers-mode))
+;; vim keying
+(use-package evil
+  :init
+  (setq evil-want-integration t
+        evil-want-keybinding nil
+        evil-want-C-u-scroll t
+        evil-want-C-i-jump nil)
+  :defer t
+  :commands (evil-mode)
+  :hook
+  (after-init . evil-mode))
+;; 分屏
+(setq split-height-threshold nil)
+(setq split-width-threshold 0)
+;; scratch
+(defun my/clear-scratch ()
+  (interactive)
+  (with-current-buffer "*scratch*"
+    (erase-buffer)))
+(global-set-key (kbd "C-c s c") #'my/clear-scratch)
+(global-set-key (kbd "C-c s s")
+                (lambda () (interactive) (switch-to-buffer "*scratch*")))
 ;; 括号匹配高亮
 (electric-pair-mode t)
 ;; 选中时输入替换文本
@@ -11,6 +33,18 @@
 ;; all-the-icons
 (use-package all-the-icons
   :if (display-graphic-p))
+;; color
+(use-package colorful-mode
+  ;; :diminish
+  :ensure t ; Optional
+  :custom
+  (colorful-use-prefix t)
+  (colorful-only-strings 'only-prog)
+  (css-fontify-colors nil)
+  :config
+  (global-colorful-mode t)
+  (add-to-list 'global-colorful-modes 'helpful-mode))
+;; rainbow
 ;; 状态栏
 ;; 1. 定义一个“右对齐”的占位符函数
 (defun my-mode-line-fill-right ()

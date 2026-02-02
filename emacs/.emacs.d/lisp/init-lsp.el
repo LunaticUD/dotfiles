@@ -1,22 +1,33 @@
-;; yasnippet（防炸）
-(when (require 'yasnippet nil 'noerror)
-  (yas-global-mode 1))
+;; yasnippet
+(use-package yasnippet
+  :ensure t
+  :hook (prog-mode . yas-global-mode))
+(use-package yasnippet-snippets
+  :ensure t
+  :after yasnippet)
 
 ;; lsp-bridge
-(add-to-list 'load-path "~/.emacs.d/elpa/lsp-bridge")
-(require 'lsp-bridge)
-;; 不在 minibuffer 显示文档
-(setq lsp-bridge-show-documentation-in-minibuffer nil)
-;; 启用文档 popup
-(setq lsp-bridge-doc-enable t)
-(setq lsp-bridge-doc-position 'right)
-;; hover / signature
-(setq lsp-bridge-enable-hover-diagnostic t)
-(setq lsp-bridge-enable-signature-help t)
-;; Python LSP
-(setq lsp-bridge-python-lsp-server 'pyright)
-
-(global-lsp-bridge-mode)
+(use-package lsp-bridge
+  :load-path "~/.emacs.d/elpa/lsp-bridge"
+  :defer t
+  :commands (lsp-bridge-mode global-lsp-bridge-mode)
+  :hook
+  ;; 只有进入编程模式才启用
+  (prog-mode . lsp-bridge-mode)
+  :init
+  ;; Python LSP（init 阶段，autoload 前就生效）
+  (setq lsp-bridge-python-lsp-server 'pyright)
+  ;; 不在 minibuffer 显示文档
+  (setq lsp-bridge-show-documentation-in-minibuffer nil)
+  ;; 文档 popup
+  (setq lsp-bridge-doc-enable t)
+  (setq lsp-bridge-doc-position 'right)
+  ;; hover / signature
+  (setq lsp-bridge-enable-hover-diagnostic t)
+  (setq lsp-bridge-enable-signature-help t)
+  :config
+  ;; 真正加载后才执行
+  (message "lsp-bridge loaded"))
 
 ;; 补全键位（必须 after-load）
 (with-eval-after-load 'lsp-bridge
@@ -41,7 +52,10 @@
   (call-interactively (key-binding (kbd "C-c l r")))
   (call-interactively (key-binding (kbd "C-x C-v"))))
 (global-set-key (kbd "C-x r") #'my-action)
-
+;; eldoc -1
+(add-hook 'python-mode-hook
+          (lambda ()
+            (eldoc-mode -1)))
 
 
 (provide 'init-lsp)
