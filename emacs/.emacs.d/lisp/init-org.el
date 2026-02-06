@@ -1,3 +1,4 @@
+(setq org-hide-emphasis-markers t)
 ;; Org 知识库根目录
 (setq org-directory "~/org")
 ;; 默认收集箱文件
@@ -32,5 +33,20 @@
                 (lambda ()
                   (interactive)
                   (find-file "~/org/index.org")))
+(use-package org-bullets
+  :ensure t
+  :after org
+  :hook (org-mode . (lambda ()
+                      (org-bullets-mode 1)
+                      (org-indent-mode 1)))
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "✸" "✿" "◆" "▶"))
+  :config
+  ;; 不让 org-indent 自动隐藏星号（配合 org-hide-leading-stars 更直观）
+  (setq org-indent-mode-turns-on-hiding-stars nil))
+
+;; 推荐一起开：让标题前面的 * 不显示（org-bullets 会显示你设的符号）
+(setq org-hide-leading-stars t)
+
 
 (provide 'init-org)

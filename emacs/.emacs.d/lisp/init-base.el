@@ -1,9 +1,43 @@
+;; ;; 默认长行不折行（会截断，左右滚动查看）
+;; (setq-default truncate-lines t)
+;; (setq-default word-wrap nil)
+;; (setq auto-hscroll-mode t)
+;; (setq hscroll-step 1)   ;; 每次水平滚动 1 列（更细）
 ;; 显示行号,只在编辑模式里开
 (dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
   (add-hook hook #'display-line-numbers-mode))
 ;; 分屏
-(setq split-height-threshold nil)
-(setq split-width-threshold 0)
+(setq split-width-threshold 120)
+(setq split-height-threshold 80)
+;; 控制 Help / 编译 / REPL 的出现位置
+(setq display-buffer-alist
+      '(
+        ;; ---- Help: 右侧侧边栏 ----
+        ("\\*Help\\*"
+         (display-buffer-in-side-window)
+         (side . right)
+         (window-width . 0.4))
+        ;; ---- Compilation & Warnings: 底部 ----
+        ("\\*compilation\\*"
+         (display-buffer-in-side-window)
+         (side . bottom)
+         (window-height . 0.3))
+        ("\\*Warnings\\*"
+         (display-buffer-in-side-window)
+         (side . bottom)
+         (window-height . 0.25))
+        ;; ---- R (ESS): 右侧 ----
+        ;; 匹配 *R* 以及 *R:xxx*
+        ("\\*R\\(\\:.*\\)?\\*"
+         (display-buffer-in-direction)
+         (direction . right)
+         (window-width . 0.35))
+        ;; ---- Python: 右侧 ----
+        ("\\*Python\\*"
+         (display-buffer-in-direction)
+         (direction . right)
+         (window-width . 0.35))
+        ))
 ;; scratch
 (defun my/clear-scratch ()
   (interactive)
@@ -12,6 +46,18 @@
 (global-set-key (kbd "C-c s c") #'my/clear-scratch)
 (global-set-key (kbd "C-c s s")
                 (lambda () (interactive) (switch-to-buffer "*scratch*")))
+;; 缩进
+(global-set-key
+ (kbd "C-c >")
+ (lambda ()
+   (interactive)
+   (indent-rigidly (region-beginning) (region-end) 2)))
+
+(global-set-key
+ (kbd "C-c <")
+ (lambda ()
+   (interactive)
+   (indent-rigidly (region-beginning) (region-end) -2)))
 ;; 括号匹配高亮
 (electric-pair-mode t)
 ;; 选中时输入替换文本
@@ -52,7 +98,7 @@
                               (propertize "" 'face 'error))
                              (t
                               (propertize "●" 'face 'success))))
-               ""
+               " "
                ;; 缓冲区名称 (加粗)
                (propertize "%b" 'face 'bold)
                ;; ✅ 在名称右侧显示 pwd
@@ -74,6 +120,7 @@
                (propertize "%l:%c" 'face 'font-lock-constant-face)
                "  "
                ))
+
 ;; 设置默认光标
 (setq-default cursor-type 'bar)
 ;; 非激活窗口设为更暗，以示区分

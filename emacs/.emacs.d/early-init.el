@@ -43,7 +43,8 @@
 
 (setq-default bidi-display-reordering nil
 	          bidi-paragraph-direction 'left-to-right)
-
+(set-face-attribute 'mode-line nil 
+                    :height 1.2 )
 ;;; Minimal Frame 
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
@@ -91,19 +92,19 @@
 (set-selection-coding-system 'utf-8)
 
 
-;;; Startup Timer
-(defun zen/display-startup-time ()
-  (message "📑 loaded in %s with %d 🚮"
-           (format "%.2f ⌛"
-                   (float-time
-                    (time-subtract after-init-time before-init-time)))
-           gcs-done))
+;; ;;; Startup Timer
+;; (defun zen/display-startup-time ()
+;;   (message "📑 loaded in %s with %d 🚮"
+;;            (format "%.2f ⌛"
+;;                    (float-time
+;;                     (time-subtract after-init-time before-init-time)))
+;;            gcs-done))
 
 
 ;;; Hooks
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (zen/display-startup-time)
+            ;; (zen/display-startup-time)
             (set-frame-parameter nil 'alpha-background 95)
             (add-to-list 'default-frame-alist '(alpha-background . 95))
             (setq gc-cons-threshold (* 16 1024 1024)
@@ -117,7 +118,7 @@
 (set-face-attribute 'mode-line nil
                     :background "#272822"  ; 设为与背景同色，或者稍亮 #3E3D32
                     :foreground "#F8F8F2"
-                    :box nil               ; 必须去掉 box，否则会有 3D 边框
+                    :box nil            ; 必须去掉 box，否则会有 3D 边框
                     :overline nil
                     :underline nil)
 ;; 设置窗口框架参数

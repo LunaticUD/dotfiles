@@ -2,10 +2,16 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("org-capture-last-stored"
+(("org-refile-last-stored"
+ (filename . "~/org/notes/org-learn-notes.org")
+ (front-context-string . "** 轮廓\n-> FOLDED ")
+ (rear-context-string . " -> SUBTREE --.\n")
+ (position . 414)
+ (last-modified 27012 236 634570 645000))
+("org-capture-last-stored"
  (filename . "~/org/projects.org")
- (front-context-string . "** TODO 修改综述\n  [")
- (rear-context-string)
- (position . 9)
- (last-modified 27007 65197 71824 563000))
+ (front-context-string . "** TODO 再读综述\n  [")
+ (rear-context-string . "-02-03 二 15:32]\n")
+ (position . 191)
+ (last-modified 27011 4318 853102 237000))
 )

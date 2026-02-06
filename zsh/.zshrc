@@ -376,3 +376,4 @@ eval "$(direnv hook zsh)"
 
 # Created by `pipx` on 2026-01-30 01:05:36
 export PATH="$PATH:/home/loong/.local/bin"
+# export PATH="/usr/sbin:$PATH"

@@ -30,6 +30,11 @@ bat_charging = "|^| "
 # button = "left"
 # cmd = "bash ~/.config/i3/script/bluetooth -theme '~/.config/i3status-rust/theme/simple-tokyonight.rasi' -timeout 5"
 
+# --- 待办事项 ---
+[[block]]
+block = "taskwarrior"
+interval = 10
+
 # --- 屏幕亮度 (内置块) ---
 [[block]]
 block = "backlight"

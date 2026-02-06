@@ -14,5 +14,5 @@
 (require 'init-org)
 ;; (require 'init-dired)
 ;; (require 'init-tab)
-(require 'init-cursor)
+;; (require 'init-cursor)
 (put 'upcase-region 'disabled nil)

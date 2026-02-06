@@ -1,7 +1,8 @@
 ;; yasnippet
 (use-package yasnippet
   :ensure t
-  :hook (prog-mode . yas-global-mode))
+  :hook (prog-mode . yas-minor-mode))
+
 (use-package yasnippet-snippets
   :ensure t
   :after yasnippet)
@@ -24,7 +25,7 @@
   (setq lsp-bridge-doc-position 'right)
   ;; hover / signature
   (setq lsp-bridge-enable-hover-diagnostic t)
-  (setq lsp-bridge-enable-signature-help t)
+  (setq lsp-bridge-enable-signature-help nil)
   :config
   ;; 真正加载后才执行
   (message "lsp-bridge loaded"))
