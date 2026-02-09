@@ -1,8 +1,37 @@
-;; ;; 默认长行不折行（会截断，左右滚动查看）
-;; (setq-default truncate-lines t)
-;; (setq-default word-wrap nil)
-;; (setq auto-hscroll-mode t)
-;; (setq hscroll-step 1)   ;; 每次水平滚动 1 列（更细）
+;; 不折行
+(use-package visual-fill-column
+  :ensure t
+  :init
+  (setq visual-fill-column-width 120
+        visual-fill-column-center-text t)
+  :hook
+  ((org-mode python-mode) . visual-fill-column-mode))
+(use-package adaptive-wrap
+  :ensure t
+  :hook
+  ((org-mode python-mode) . adaptive-wrap-prefix-mode))
+(add-hook 'org-mode-hook #'visual-line-mode)
+(add-hook 'python-mode-hook #'visual-line-mode)
+(defun my/wrap-layout-toggle ()
+  "Toggle pretty visual wrapping: visual-line + visual-fill-column + adaptive-wrap."
+  (interactive)
+  (require 'visual-fill-column nil t)
+  (require 'adaptive-wrap nil t)
+  (if (bound-and-true-p visual-fill-column-mode)
+      (progn
+        (when (fboundp 'visual-fill-column-mode) (visual-fill-column-mode -1))
+        (when (fboundp 'adaptive-wrap-prefix-mode) (adaptive-wrap-prefix-mode -1))
+        (visual-line-mode -1))
+    (visual-line-mode 1)
+    (when (fboundp 'visual-fill-column-mode) (visual-fill-column-mode 1))
+    (when (fboundp 'adaptive-wrap-prefix-mode) (adaptive-wrap-prefix-mode 1))))
+(global-set-key (kbd "C-c w") #'my/wrap-layout-toggle)
+
+
+;; 全局elisp
+(global-set-key (kbd "C-j") #'eval-print-last-sexp)
+;; 警告设置
+(setq warning-minimum-level :error)
 ;; 显示行号,只在编辑模式里开
 (dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
   (add-hook hook #'display-line-numbers-mode))

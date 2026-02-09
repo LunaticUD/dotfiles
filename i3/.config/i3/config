@@ -126,7 +126,7 @@ bindsym $mod+Shift+r restart
 # sway关机 
 bindsym $mod+o exec --no-startup-id  "bash ~/.config/rofi/powermenu/type-4/powermenu.sh"
 # 截图
-bindsym Mod1+a exec --no-startup-id flameshot gui -c
+bindsym Mod1+1 exec --no-startup-id flameshot gui -c
 bindsym Print exec --no-startup-id flameshot full -p "$HOME/Pictures/$(date +%s).png"
 bindsym $mod+Print exec --no-startup-id flameshot full --clipboard
 # resize window (you can also use the mouse for that)

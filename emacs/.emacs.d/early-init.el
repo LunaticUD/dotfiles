@@ -1,4 +1,14 @@
 ;;; early-init.el -*- lexical-binding: t -*-
+;; visual-fill-column
+
+;; (add-hook 'text-mode-hook #'visual-line-mode)
+;; (setq-default line-move-visual t)
+
+;; (add-hook 'text-mode-hook
+;;           (lambda () (setq-local fill-column 120)))
+
+;; (add-hook 'prog-mode-hook
+;;           (lambda () (setq-local fill-column 100)))
 
 ;;; Garbage Collection
 (defvar file-name-handler-alist-original file-name-handler-alist)
@@ -43,8 +53,8 @@
 
 (setq-default bidi-display-reordering nil
 	          bidi-paragraph-direction 'left-to-right)
-(set-face-attribute 'mode-line nil 
-                    :height 1.2 )
+;; (set-face-attribute 'mode-line nil 
+;;                     :height 1.2 )
 ;;; Minimal Frame 
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)

@@ -1,7 +1,11 @@
 ;; yasnippet
 (use-package yasnippet
   :ensure t
-  :hook (prog-mode . yas-minor-mode))
+  :hook (prog-mode . yas-minor-mode)
+  :config
+  ;; put your own snippets here
+  (add-to-list 'yas-snippet-dirs (expand-file-name "snippets" user-emacs-directory))
+  (yas-reload-all))
 
 (use-package yasnippet-snippets
   :ensure t

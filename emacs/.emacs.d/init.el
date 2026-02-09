@@ -12,7 +12,9 @@
 (require 'init-lsp)
 (require 'init-conda)
 (require 'init-org)
+(require 'init-custom)
 ;; (require 'init-dired)
 ;; (require 'init-tab)
 ;; (require 'init-cursor)
 (put 'upcase-region 'disabled nil)
+

@@ -6,7 +6,7 @@
   :custom
   (vertico-cycle t)
   (vertico-resize t)   ;; 让高度随内容自动调整（配合 posframe 很重要）
-  (vertico-count 8)   ;; 最大 12 行
+  (vertico-count 7)    ;; 最大 12 行
   :bind
   (:map vertico-map
         ("C-n" . vertico-next)
@@ -78,6 +78,7 @@
     (iedit-mode 1)))
 
 (global-set-key (kbd "C-c i l") #'my/consult-line-iedit)
+
 ;; ;; Vertico Posframe: 用 posframe 浮动显示 Vertico 候选（替代 mini-frame 的“浮动感”）
 ;; (use-package vertico-posframe
 ;;   :ensure t
@@ -89,7 +90,7 @@
 ;;   ;; 居中
 ;;   (vertico-posframe-poshandler #'posframe-poshandler-frame-center)
 ;;   ;; 宽度
-;;   (vertico-posframe-width 120))
+;;   (vertico-posframe-width 80))
 
 
 (provide 'init-minibuffer)
