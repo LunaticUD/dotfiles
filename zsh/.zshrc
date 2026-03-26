@@ -324,7 +324,7 @@ denv() {
 # # --- 3. 颜色与高亮配置 (整合重复项) ---
 # zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}" 'ma=7;1'
 # # --- 4. 分组与描述格式 ---
-# zstyle ':completion:*' group-name ''
+zstyle ':completion:*' group-name ''
 # zstyle ':completion:*:descriptions' format '[%d]'
 # zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
 # # --- 5. 匹配策略 (保持你的模糊匹配逻辑) ---
@@ -377,3 +377,4 @@ eval "$(direnv hook zsh)"
 # Created by `pipx` on 2026-01-30 01:05:36
 export PATH="$PATH:/home/loong/.local/bin"
 # export PATH="/usr/sbin:$PATH"
+ulimit -c 0

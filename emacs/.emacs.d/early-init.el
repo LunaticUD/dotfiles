@@ -124,23 +124,84 @@
 ;;custom
 (setq custom-file (locate-user-emacs-file "var/custom.el"))
 (load custom-file :no-error-if-missing)
-;; 关键：修改背景色 (去除截图里的亮灰色条)
+;; ;; 关键：修改背景色 (去除截图里的亮灰色条)
+;; (set-face-attribute 'mode-line nil
+;;                     :background "#272822"  ; 设为与背景同色，或者稍亮 #3E3D32
+;;                     :foreground "#F8F8F2"
+;;                     :box nil            ; 必须去掉 box，否则会有 3D 边框
+;;                     :overline nil
+;;                     :underline nil)
+;; ;; 设置窗口框架参数
+;; (push '(background-color . "#272822") default-frame-alist)
+;; (push '(foreground-color . "#F8F8F2") default-frame-alist)
+;; (push '(cursor-color     . "#E6DB74") default-frame-alist)
+
+;; ;; 设置选中区域颜色
+;; (add-hook 'window-setup-hook
+;;           (lambda ()
+;;             ;; 背景设为浅黄色，前景设为深色以保证文字可读性
+;;             (set-face-attribute 'region nil :background "#E6DB74" :foreground "#272822")))
+;;; early-init.el --- theme + faces (all-in-early-init)
+
+;; ================================
+;; 1) Early frame color (防止白屏闪烁)
+;; ================================
+(setq default-frame-alist
+      (append (list
+               '(background-color . "#282828")  ;; gruvbox bg
+               '(foreground-color . "#ebdbb2")  ;; gruvbox fg
+               '(cursor-color     . "#fabd2f")) ;; gruvbox yellow
+              default-frame-alist))
+
+;; ================================
+;; 2) Early mode-line (防止底部白条闪屏)
+;;    先用暗色挡住默认浅色 face
+;; ================================
 (set-face-attribute 'mode-line nil
-                    :background "#272822"  ; 设为与背景同色，或者稍亮 #3E3D32
-                    :foreground "#F8F8F2"
-                    :box nil            ; 必须去掉 box，否则会有 3D 边框
+                    :background "#282828"
+                    :foreground "#ebdbb2"
+                    :box nil
                     :overline nil
                     :underline nil)
-;; 设置窗口框架参数
-(push '(background-color . "#272822") default-frame-alist)
-(push '(foreground-color . "#F8F8F2") default-frame-alist)
-(push '(cursor-color     . "#E6DB74") default-frame-alist)
 
-;; 设置选中区域颜色
-(add-hook 'window-setup-hook
+(set-face-attribute 'mode-line-inactive nil
+                    :background "#282828"
+                    :foreground "#7c6f64"
+                    :box nil)
+
+;; ================================
+;; 3) Disable any enabled themes (optional but safer)
+;; ================================
+(mapc #'disable-theme custom-enabled-themes)
+
+;; ================================
+;; 4) Load theme ASAP when init finishes (仍然写在 early-init)
+;;    用 after-init-hook 比 emacs-startup-hook 更早、更少闪屏
+;; ================================
+(add-hook 'after-init-hook
           (lambda ()
-            ;; 背景设为浅黄色，前景设为深色以保证文字可读性
-            (set-face-attribute 'region nil :background "#E6DB74" :foreground "#272822")))    
+            ;; 加载主题
+            (load-theme 'gruvbox-dark-medium t)
+
+            ;; 主题加载后再覆盖一次（防止主题把你自定义的 face 改回去）
+            (set-face-attribute 'mode-line nil
+                                :background "#282828"
+                                :foreground "#ebdbb2"
+                                :box nil
+                                :overline nil
+                                :underline nil)
+
+            (set-face-attribute 'mode-line-inactive nil
+                                :background "#282828"
+                                :foreground "#7c6f64"
+                                :box nil)
+
+            ;; 选区颜色（你选择的 gruvbox 灰）
+            (set-face-attribute 'region nil
+                                :background "#504945"
+                                :foreground "#ebdbb2")))
+
+
 ;; 禁用自动生成的文件
 (setq make-backup-files nil)
 (setq auto-save-default nil)
@@ -154,7 +215,7 @@
   (cond
    ((executable-find "ipython3")
     (setq python-shell-interpreter "ipython3"
-          python-shell-interpreter-args "-i --simple-prompt --no-autoindent"))
+          python-shell-interpreter-args "-i --no-autoindent"))
    (t
     (setq python-shell-interpreter "python3"
           python-shell-interpreter-args "-i")))
@@ -169,7 +230,7 @@
                  (side . right)
                  (slot . 0)
                  (window-width . 0.25)))
-
+  
   ;; --- 功能函数定义 ---
 
   (defun my/python-repl-toggle ()

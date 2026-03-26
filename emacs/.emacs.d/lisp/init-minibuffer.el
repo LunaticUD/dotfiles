@@ -6,7 +6,7 @@
   :custom
   (vertico-cycle t)
   (vertico-resize t)   ;; 让高度随内容自动调整（配合 posframe 很重要）
-  (vertico-count 7)    ;; 最大 12 行
+  (vertico-count 3)    ;; 最大 12 行
   :bind
   (:map vertico-map
         ("C-n" . vertico-next)
@@ -84,8 +84,7 @@
 ;;   :ensure t
 ;;   :after vertico
 ;;   :init
-;;   (when (display-graphic-p)
-;;     (vertico-posframe-mode 1))
+;;     (vertico-posframe-mode 1)
 ;;   :custom
 ;;   ;; 居中
 ;;   (vertico-posframe-poshandler #'posframe-poshandler-frame-center)

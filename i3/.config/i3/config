@@ -164,8 +164,8 @@ exec_always --no-startup-id feh --bg-fill ~/Pictures/4.png
 ### Autostart
 exec --no-startup-id $HOME/.config/i3/script/master-stack
 bindsym $mod+Tab exec --no-startup-id $HOME/.config/i3/script/swapper
-
-# exec --no-startup-id udiskie -t
+# 自动挂载
+exec --no-startup-id udiskie -t
 exec_always --no-startup-id picom
 # 启动触摸板手势服务
 exec_always --no-startup-id libinput-gestures-setup start
