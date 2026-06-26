@@ -1,5 +1,6 @@
 ## Install
-
+###这是三级标题
+  
 * install
 ```
 sudo apt-get install alacritty emacs fcitx5 \
@@ -16,4 +17,3 @@ sudo apt-get install direnv
 ## Options
 
 * options config is polybar in polybar
-

@@ -378,3 +378,12 @@ eval "$(direnv hook zsh)"
 export PATH="$PATH:/home/loong/.local/bin"
 # export PATH="/usr/sbin:$PATH"
 ulimit -c 0
+
+# fnm (added by Research-Claw)
+export PATH="$HOME/.local/share/fnm:$PATH"
+eval "$(fnm env --use-on-cd --shell bash)"
+# Research-Claw config path (added by install.sh)
+export OPENCLAW_CONFIG_PATH="/home/loong/research-claw/config/openclaw.json"
+
+# Standalone pnpm (added by Research-Claw install.sh)
+export PATH="/home/loong/research-claw/.tools/pnpm/bin:$PATH"
